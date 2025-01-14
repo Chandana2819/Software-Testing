@@ -1,0 +1,17 @@
+/ Test to check if the status code is 200
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+// Test to check if the response time is less than 200ms
+pm.test("Response time is less than 200ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+
+// Test to check if the response body contains the expected user data
+pm.test("Response body contains user data", function () {
+    const responseJson = pm.response.json();
+    pm.expect(responseJson).to.have.property('id', 1);
+    pm.expect(responseJson).to.have.property('name').that.is.a('string');
+    pm.expect(responseJson).to.have.property('email').that.is.a('string');
+});
